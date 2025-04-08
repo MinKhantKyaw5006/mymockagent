@@ -261,6 +261,10 @@
     @apply flex items-center justify-center mx-auto max-w-7xl min-h-screen max-sm:px-4 max-sm:py-8;
   }
 
+  .auth-card {
+    @apply max-w-md w-full p-6 rounded-lg border bg-white shadow-sm dark:bg-zinc-900;
+  }
+
   .root-layout {
     @apply flex mx-auto max-w-7xl flex-col gap-12 my-12 px-16 max-sm:px-4 max-sm:my-8;
   }
@@ -291,6 +295,10 @@
     .badge-text {
       @apply text-sm font-semibold capitalize;
     }
+  }
+
+  .card-auth {
+    @apply dark-gradient rounded-2xl flex flex-col p-6 relative overflow-hidden gap-10 justify-between border border-zinc-300 dark:border-zinc-700 max-h-[600px];
   }
 }
 

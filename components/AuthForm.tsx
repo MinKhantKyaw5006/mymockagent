@@ -61,7 +61,8 @@
     return (
 
   <div className="w-full h-screen flex justify-center items-center">
-    <div className="w-full max-w-md p-6 rounded-lg border bg-white shadow-sm dark:bg-zinc-900">
+    {/* <div className="w-full max-w-md p-6 rounded-lg border bg-white shadow-sm dark:bg-zinc-900"> */}
+    <div className="w-full max-w-md p-6 rounded-2xl border bg-white shadow-sm dark:bg-zinc-900 dark-gradient border-zinc-300 dark:border-zinc-700">
           <div className='flex flex-row gap-2 justify-center'>
               <Image src="/logo.svg" alt="logo" height={32} width={38}/>
               <h2 className='text-pretty-100'>My Mock Agent</h2>
