@@ -12,6 +12,9 @@
   import { toast } from 'sonner'
   import FormField from './FormField'
   import { useRouter } from 'next/navigation'
+import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '@/firebase/client'
+import { signUp } from '@/lib/actions/auth.action'
 
 
 
@@ -38,23 +41,38 @@
       },
     })
   
-    // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
-      try{
-        if(type === 'sign-up'){
-          toast.success('Account created Successfully, please Sign in!')
-          router.push('/sign-in')
-          // console.log('SIGN UP', values);
-        } else{
-          toast.success('Sign in Successful!')
-          router.push('/')
-          //console.log('SIGN IN', values);
+  // 2. Define a submit handler.
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    try {
+      if (type === 'sign-up') {
+        const { name, email, password } = values;
+
+        const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+
+        const result = await signUp({
+          uid: userCredentials.user.uid,
+          name: name!,
+          email,
+          password,
+        });
+
+        if (!result?.success) {
+          toast.error(result?.message);
+          return;
         }
-      }catch(error){
-        console.log(error);
-        toast.error(`ther was an error: ${error}`);
+        toast.success('Account created Successfully, please Sign in!');
+        router.push('/sign-in');
+        // console.log('SIGN UP', values);
+      } else {
+        toast.success('Sign in Successful!');
+        router.push('/');
+        // console.log('SIGN IN', values);
       }
+    } catch (error) {
+      console.log(error);
+      toast.error(`There was an error: ${error}`);
     }
+  };
 
     const isSignIn = type ==='sign-in';
 
