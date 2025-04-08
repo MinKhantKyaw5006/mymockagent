@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Firebase admin SDK JSON
 mock-agent-firebase-adminsdk-fbsvc-34532b12e4.json
+
+# Ignore client.ts in /firebase directory
+/firebase/client.ts
