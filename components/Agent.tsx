@@ -60,11 +60,15 @@ const Agent = ({userName, userId, type,}: AgentProps) => {
         }
     }, [])
 
-    useEffect(()=>{
-        //not route to interview but home page cuz it take time to generate interview , user can manually go to interview generated after
-        if(callStatus === CallStatus.FINISHED) router.push('/');
+    // useEffect(()=>{
+    //     //not route to interview but home page cuz it take time to generate interview , user can manually go to interview generated after
+    //     if(callStatus === CallStatus.FINISHED) router.push('/');
 
-    },[messages, CallStatus, type, userId, router]);
+    // },[messages, CallStatus, type, userId, router]);
+    useEffect(() => {
+        if (callStatus === CallStatus.FINISHED) router.push('/');
+      }, [callStatus, router]);
+      
 
     const handleCall = async ()=> {
         setCallStatus(CallStatus.CONNECTING);
