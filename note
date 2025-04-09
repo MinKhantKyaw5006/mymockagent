@@ -1,0 +1,14 @@
+Unhandled Runtime Error
+Server
+
+
+Error: 9 FAILED_PRECONDITION: The query requires an index. You can create it here: https://console.firebase.google.com/v1/r/project/mock-agent/firestore/indexes?create_composite=Ck1wcm9qZWN0cy9tb2NrLWFnZW50L2RhdGFiYXNlcy8oZGVmYXVsdCkvY29sbGVjdGlvbkdyb3Vwcy9pbnRlcnZpZXdzL2luZGV4ZXMvXxABGgoKBnVzZXJJZBABGg0KCWNyZWF0ZWRBdBACGgwKCF9fbmFtZV9fEAI
+
+Call Stack
+8
+
+Show 6 ignore-listed frame(s)
+getInterviewByUserId
+rsc:/Server/C:%5CUsers%5CROG%20ZEPHYRUS%5CDocuments%5CGitHub%5Cmymockagent%5C.next%5Cserver%5Cchunks%5Cssr%5C%5Broot%20of%20the%20server%5D__2e1ae940._.js (182:234)
+Homepage
+rsc:/Server/C:%5CUsers%5CROG%20ZEPHYRUS%5CDocuments%5CGitHub%5Cmymockagent%5C.next%5Cserver%5Cchunks%5Cssr%5C_13c75128._.js (640:192)
