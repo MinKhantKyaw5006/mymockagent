@@ -12,9 +12,9 @@
   import { toast } from 'sonner'
   import FormField from './FormField'
   import { useRouter } from 'next/navigation'
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '@/firebase/client'
-import { signUp } from '@/lib/actions/auth.action'
+import { signIn, signUp } from '@/lib/actions/auth.actions'
 
 
 
@@ -42,31 +42,55 @@ import { signUp } from '@/lib/actions/auth.action'
     })
   
   // 2. Define a submit handler.
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
-      if (type === 'sign-up') {
-        const { name, email, password } = values;
+      if (type === "sign-up") {
+        const { name, email, password } = data;
 
-        const userCredentials = await createUserWithEmailAndPassword(auth, email, password);
+        const userCredential = await createUserWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
 
         const result = await signUp({
-          uid: userCredentials.user.uid,
+          uid: userCredential.user.uid,
           name: name!,
           email,
           password,
         });
 
-        if (!result?.success) {
-          toast.error(result?.message);
+        if (!result.success) {
+          toast.error(result.message);
           return;
         }
-        toast.success('Account created Successfully, please Sign in!');
-        router.push('/sign-in');
-        // console.log('SIGN UP', values);
+
+        toast.success("Account created successfully. Please sign in.");
+        router.push("/sign-in");
       } else {
-        toast.success('Sign in Successful!');
-        router.push('/');
-        // console.log('SIGN IN', values);
+        const { email, password } = data;
+
+        const userCredential = await signInWithEmailAndPassword(
+          auth,
+          email,
+          password
+        );
+
+        const idToken = await userCredential.user.getIdToken();
+        if (!idToken) {
+          toast.error("Sign in Failed. Please try again.");
+          return;
+        }
+
+        await signIn({
+          email,
+          idToken,
+        });
+
+        toast.success("Signed in successfully.");
+        router.push("/");
+        //on problem comment the code below
+        //router.refresh(); // 👈 Add this
       }
     } catch (error) {
       console.log(error);
