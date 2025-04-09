@@ -2,9 +2,10 @@ import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 import React from 'react'
 import Image from 'next/image'
-import { dummyInterviews } from '@/constants'
+//import { dummyInterviews } from '@/constants'
 import InterviewCard from '@/components/InterviewCard'
-import { getCurrentUser, getInterviewByUserId, getLatestInterviews } from '@/lib/actions/auth.actions'
+import { getCurrentUser } from '@/lib/actions/auth.actions'
+import { getInterviewByUserId, getLatestInterviews } from '@/lib/actions/general.action'
 
 
 const Homepage = async () => {
@@ -56,7 +57,7 @@ const Homepage = async () => {
             latestInterviews?.map((interview) =>(
               <InterviewCard {...interview} key ={interview.id}/>
             ))): (
-              <p>There haven&apos;t taken interviews yet</p>
+              <p>You haven&apos;t taken interviews yet</p>
             )
           // dummyInterviews.map((interview)=>())  we dnt need to use dummy data anymore
         }
