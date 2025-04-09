@@ -47,3 +47,16 @@ export async function POST(request: Request){
         return Response.json({success: false, error}, {status: 500});   
     }
 }
+
+// test in postman or httpie
+// {
+//     "type": "mixed",
+//     "role": "frontend",
+//     "level": "senior",
+//     "techstack": "next.js",
+//     "amount": "7",
+//     "userid":
+//     "Fsdlfkfjriijdfjkadfaltjifi"
+//   }
+
+//copy the userid from firestore database
