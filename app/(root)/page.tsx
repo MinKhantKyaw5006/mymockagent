@@ -10,17 +10,33 @@ import { getInterviewByUserId, getLatestInterviews } from '@/lib/actions/general
 
 const Homepage = async () => {
   const user = await getCurrentUser();  
+
+    // Early return if there's no user or user id
+    if (!user?.id) {
+      return <p>User not found or not signed in</p>;
+    }
+
   //parallel request
   const [userInterviews,latestInterviews] = await Promise.all([
-    await getInterviewByUserId(user?.id!),
+    //await getInterviewByUserId(user?.id!),  //original version  with ! included
+    await getInterviewByUserId(user?.id),
     await getLatestInterviews({userId: user?.id}),
   ]);
   //const userInterviews = await getInterviewByUserId(user?.id!);
   //const latestInterviews = await getLatestInterviews({userId: user?.id}); 
 
+  
 
-  const hasPastInterviews = userInterviews?.length > 0;
-  const hasUpcomingInterviews = latestInterviews?.length > 0;
+  //orignal versions
+  // const hasPastInterviews = userInterviews?.length > 0;
+  // const hasUpcomingInterviews = latestInterviews?.length > 0;
+
+   // Safely check for interviews arrays length
+   const hasPastInterviews = (userInterviews?.length || 0) > 0;
+   const hasUpcomingInterviews = (latestInterviews?.length || 0) > 0;
+   
+
+
   return (
     <>
     <section className='card-cta'>

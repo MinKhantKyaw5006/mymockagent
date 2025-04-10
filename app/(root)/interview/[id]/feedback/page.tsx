@@ -46,10 +46,22 @@ const page = async ({ params }: { params: RouteParams }) => {
   const interview = await getInterviewById(id);
   if (!interview) redirect('/');
 
+  //original version
+  // const feedback = await getFeedbackByInterviewId({
+  //   interviewId: id,
+  //   userId: user?.id!,
+  // });
+
+  //second version
+  if (!user) {
+    throw new Error('User is not authenticated');
+  }
+  
   const feedback = await getFeedbackByInterviewId({
     interviewId: id,
-    userId: user?.id!,
+    userId: user.id, // Now, user.id is guaranteed to be available
   });
+  
 
   return (
     <section className="section-feedback px-6 py-10 max-w-4xl mx-auto">
